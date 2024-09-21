@@ -35,7 +35,7 @@ export default function RankPage(props: PageProps) {
   const { params } = props
 
   return (
-    <main className="min-h-svh">
+    <main className="max-h-svh">
       <RankName rankId={params.rankId} />
       <AddNewRankItem rankId={params.rankId} />
       <Items rankId={params.rankId} />
@@ -102,7 +102,7 @@ const Items = (props: { rankId: string }) => {
 
 
   return (
-    <div className="flex flex-col gap-2 m-2">
+    <div className="flex flex-col gap-2 m-2 h-full max-h-[calc(100svh-74px-140px)] overflow-scroll">
       {sortedItems.map((item, index) => (
         <Fragment key={item.id}>
           <Link href={`/${props.rankId}/${item.id}`} className="p-2 flex flex-row gap-2 w-full items-center cursor-pointer">

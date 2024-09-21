@@ -15,7 +15,7 @@ export const viewport: Viewport = {
 
 export default function HomePage() {
   return (
-    <main className="min-h-svh">
+    <main className="max-h-svh">
       <h1 className="text-2xl p-4 bg-purple-500 text-white">Rankem</h1>
       <RankItems />
       <AddNewRank />
@@ -27,7 +27,7 @@ const RankItems = () => {
   const ranks = useAppStore((state) => state.ranks)
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 h-full max-h-[calc(100svh-64px-78px)] overflow-scroll">
       {ranks.map((rank, index) => (
         <Fragment key={rank.id}>
           <Link href={`/${rank.id}`} className="p-2 flex flex-row gap-2 w-full items-center cursor-pointer">
