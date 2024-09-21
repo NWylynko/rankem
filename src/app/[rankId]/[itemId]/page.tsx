@@ -87,7 +87,7 @@ const Items = (props: { rankId: string, itemId: string }) => {
     }))
 
   return (
-    <div className="flex flex-col gap-2 m-2 h-full max-h-[calc(100svh-74px)] overflow-scroll">
+    <div className="flex flex-col gap-2 m-2 h-full max-h-[calc(100svh-86px)] overflow-scroll">
       {itemsWithoutSelf.map((item, index) => (
         <Fragment key={item.id}>
           <div className="p-2 flex flex-row gap-2 w-full items-center cursor-pointer">
