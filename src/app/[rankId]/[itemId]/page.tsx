@@ -60,7 +60,8 @@ const RankItemName = (props: { rankId: string, itemId: string }) => {
   return (
     <div className="p-2 flex flex-row gap-2 w-full items-center cursor-pointer bg-cyan-500 text-white">
       <Link href={`/${props.rankId}`} className="p-2 m-2 text-white border-2 border-white rounded shadow"><ArrowLeftIcon size={18} /></Link>
-      <h1 className="uppercase text-xl w-full">{item.name}</h1>
+      <h1 className="uppercase text-xl">{item.name}</h1>
+      <span>are better than...</span>
       {/* <button
         type="button"
         onClick={() => {
@@ -76,16 +77,13 @@ const Items = (props: { rankId: string, itemId: string }) => {
   const rank = useRank(props.rankId)
   const selectedItem = useRankItem(props.rankId, props.itemId)
   const addBetterThanItem = useAppStore((state) => state.addBetterThanItem)
-  const addWorseThanItem = useAppStore((state) => state.addWorseThanItem)
   const removeBetterThanItem = useAppStore((state) => state.removeBetterThanItem)
-  const removeWorseThanItem = useAppStore((state) => state.removeWorseThanItem)
 
   const itemsWithoutSelf = rank.items
     .filter((item) => item.id !== props.itemId)
     .map((item) => ({
       ...item,
       isBetter: selectedItem.betterThan.includes(item.id),
-      isWorse: selectedItem.worseThan.includes(item.id),
     }))
 
   return (
@@ -103,23 +101,9 @@ const Items = (props: { rankId: string, itemId: string }) => {
                   removeBetterThanItem(props.rankId, props.itemId, item.id)
                 } else {
                   addBetterThanItem(props.rankId, props.itemId, item.id)
-                  removeWorseThanItem(props.rankId, props.itemId, item.id)
                 }
               }}
             >Better <ArrowUpIcon size={18} /></button>
-            <button
-              data-enabled={item.isWorse}
-              className="flex items-center gap-1 mx-2 border-2 border-red-300 data-[enabled=true]:border-red-400 text-red-400 data-[enabled=true]:text-white data-[enabled=true]:bg-red-400  rounded py-1 px-2 transition-colors"
-              type="button"
-              onClick={() => {
-                if (item.isWorse) {
-                  removeWorseThanItem(props.rankId, props.itemId, item.id)
-                } else {
-                  addWorseThanItem(props.rankId, props.itemId, item.id)
-                  removeBetterThanItem(props.rankId, props.itemId, item.id)
-                }
-              }}
-            >Worse <ArrowDownIcon size={18} /></button>
           </div>
           {index !== itemsWithoutSelf.length - 1 && <div className="border-t-2 border-black opacity-85 w-full" />}
         </Fragment>

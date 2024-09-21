@@ -1,6 +1,6 @@
 "use client"
 
-import { ArrowLeftIcon, CalculatorIcon, PlusIcon, Trash2Icon } from "lucide-react"
+import { ArrowLeftIcon, ArrowRightIcon, CalculatorIcon, PlusIcon, Trash2Icon } from "lucide-react"
 import { useAppStore } from "../store"
 import Link from "next/link"
 import { z } from "zod"
@@ -107,7 +107,10 @@ const Items = (props: { rankId: string }) => {
         <Fragment key={item.id}>
           <Link href={`/${props.rankId}/${item.id}`} className="p-2 flex flex-row gap-2 w-full items-center cursor-pointer">
             {showSorted ? <span className="w-full">{index + 1}. {item.name}</span> : <span className="w-full">{item.name}</span>}
-            {/* <span>{item.score}</span> */}
+            <Link href={`/${rank.id}`}
+              className="p-2 m-2 text-cyan-500 border-2 border-cyan-500 rounded shadow">
+              <ArrowRightIcon size={18} />
+            </Link>
           </Link>
           {index !== sortedItems.length - 1 && <div className="border-t-2 border-black opacity-85 w-full" />}
         </Fragment>

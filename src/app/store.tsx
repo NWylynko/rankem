@@ -9,7 +9,6 @@ type RankItem = {
   id: string
   name: string
   betterThan: string[]
-  worseThan: string[]
   score: number
 }
 
@@ -26,9 +25,7 @@ type Store = {
   addItem: (rankId: string, name: string) => void
   removeItem: (rankId: string, itemId: string) => void
   addBetterThanItem: (rankId: string, itemId: string, id: string) => void
-  addWorseThanItem: (rankId: string, itemId: string, id: string) => void
   removeBetterThanItem: (rankId: string, itemId: string, id: string) => void
-  removeWorseThanItem: (rankId: string, itemId: string, id: string) => void
   calculateScores: (rankId: string) => void
   hideRanking: (rankId: string) => void
 }
@@ -76,7 +73,6 @@ const createAppStore = () => {
               id: getNewId(),
               name,
               betterThan: [],
-              worseThan: [],
               score: 0,
             })
           }))
@@ -115,23 +111,6 @@ const createAppStore = () => {
             selectedItem.betterThan.push(id)
           }))
         },
-        addWorseThanItem: (rankId, itemId, id) => {
-          set(produce(get(), (state) => {
-            const selectedRank = state.ranks.find((rank) => rank.id === rankId)
-
-            if (selectedRank === undefined) {
-              throw new Error('Rank not found')
-            }
-
-            const selectedItem = selectedRank.items.find((item) => item.id === itemId)
-
-            if (selectedItem === undefined) {
-              throw new Error('Item not found')
-            }
-
-            selectedItem.worseThan.push(id)
-          }))
-        },
         removeBetterThanItem: (rankId, itemId, id) => {
           set(produce(get(), (state) => {
             const selectedRank = state.ranks.find((rank) => rank.id === rankId)
@@ -147,23 +126,6 @@ const createAppStore = () => {
             }
 
             selectedItem.betterThan = selectedItem.betterThan.filter((item) => item !== id)
-          }))
-        },
-        removeWorseThanItem: (rankId, itemId, id) => {
-          set(produce(get(), (state) => {
-            const selectedRank = state.ranks.find((rank) => rank.id === rankId)
-
-            if (selectedRank === undefined) {
-              throw new Error('Rank not found')
-            }
-
-            const selectedItem = selectedRank.items.find((item) => item.id === itemId)
-
-            if (selectedItem === undefined) {
-              throw new Error('Item not found')
-            }
-
-            selectedItem.worseThan = selectedItem.worseThan.filter((item) => item !== id)
           }))
         },
         calculateScores: (rankId: string) => {
@@ -188,14 +150,6 @@ const createAppStore = () => {
                 if (betterItem) {
                   // Item should be better than the other item, so outcome is 1 for item and 0 for betterItem
                   calculateElo(item, betterItem, 1);
-                }
-              });
-
-              item.worseThan.forEach(worseItemId => {
-                const worseItem = items.find(i => i.id === worseItemId);
-                if (worseItem) {
-                  // Item should be worse than the other item, so outcome is 0 for item and 1 for worseItem
-                  calculateElo(item, worseItem, 0);
                 }
               });
             });
