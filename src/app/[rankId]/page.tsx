@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Fragment } from "react"
 import { notFound, useRouter } from "next/navigation"
+import type { Viewport } from 'next'
 
 type PageProps = {
   params: {
@@ -24,6 +25,13 @@ const useRank = (rankId: string) => {
   }
 
   return rank
+}
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ec4899' },
+    { media: '(prefers-color-scheme: dark)', color: '#ec4899' },
+  ],
 }
 
 export default function RankPage(props: PageProps) {

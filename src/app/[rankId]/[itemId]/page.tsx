@@ -5,6 +5,7 @@ import Link from "next/link"
 import { Fragment } from "react"
 import { useAppStore } from "../../store"
 import { notFound, useRouter } from "next/navigation"
+import type { Viewport } from 'next'
 
 type PageProps = {
   params: {
@@ -33,6 +34,13 @@ const useRankItem = (rankId: string, itemId: string) => {
   }
 
   return item
+}
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#06b6d4' },
+    { media: '(prefers-color-scheme: dark)', color: '#06b6d4' },
+  ],
 }
 
 export default function RankPage(props: PageProps) {
