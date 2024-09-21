@@ -19,6 +19,8 @@ const font = Playpen_Sans({
   weight: ['400']
 })
 
+export const dynamic = "force-static"
+
 export default function RootLayout({
   children,
 }: PropsWithChildren) {
