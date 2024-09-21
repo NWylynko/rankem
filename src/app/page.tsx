@@ -10,10 +10,7 @@ import Link from "next/link"
 import type { Viewport } from 'next'
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#a855f7' },
-    { media: '(prefers-color-scheme: dark)', color: '#a855f7' },
-  ],
+  themeColor: '#a855f7'
 }
 
 export default function HomePage() {

@@ -28,10 +28,7 @@ const useRank = (rankId: string) => {
 }
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#ec4899' },
-    { media: '(prefers-color-scheme: dark)', color: '#ec4899' },
-  ],
+  themeColor: '#ec4899'
 }
 
 export default function RankPage(props: PageProps) {
