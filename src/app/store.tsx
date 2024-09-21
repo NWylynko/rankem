@@ -19,8 +19,8 @@ type Store = {
     id: string
     name: string
     items: RankItem[]
+    showSorted: boolean
   }[],
-  showSorted: boolean
   createRank: (name: string) => void
   deleteRank: (id: string) => void
   addItem: (rankId: string, name: string) => void
@@ -40,7 +40,6 @@ const createAppStore = () => {
       (set, get) => ({
         loading: true,
         ranks: [],
-        showSorted: false,
         createRank: (name) => {
           set(
             produce(get(), (state) => {
@@ -48,6 +47,7 @@ const createAppStore = () => {
                 id: getNewId(),
                 name,
                 items: [],
+                showSorted: false,
               })
             }),
           )
@@ -199,7 +199,7 @@ const createAppStore = () => {
               });
             });
 
-            state.showSorted = true;
+            state.ranks.find(rank => rank.id === rankId).showSorted = true;
           }));
         }
       }),

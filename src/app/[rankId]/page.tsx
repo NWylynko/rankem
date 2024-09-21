@@ -89,7 +89,7 @@ const AddNewRankItem = (props: { rankId: string }) => {
 
 const Items = (props: { rankId: string }) => {
   const rank = useRank(props.rankId)
-  const showSorted = useAppStore((state) => state.showSorted)
+  const showSorted = useAppStore((state) => state.ranks.find(rank => rank.id === props.rankId)?.showSorted)
 
   const sortedItems = showSorted ? rank.items.toSorted((a, b) => a.score - b.score) : rank.items
 
@@ -111,7 +111,7 @@ const Items = (props: { rankId: string }) => {
 
 const CalculateRanking = (props: { rankId: string }) => {
   const calculateScores = useAppStore((state) => state.calculateScores)
-  const showSorted = useAppStore((state) => state.showSorted)
+  const showSorted = useAppStore((state) => state.ranks.find(rank => rank.id === props.rankId)?.showSorted)
 
   return (
     <div className="absolute bottom-32 w-full flex items-center justify-center">
