@@ -27,7 +27,7 @@ const RankItems = () => {
   const ranks = useAppStore((state) => state.ranks)
 
   return (
-    <div className="flex flex-col gap-2 h-full max-h-[calc(100svh-64px-78px)] overflow-scroll">
+    <div className="flex flex-col gap-2 h-full max-h-[calc(100svh-64px-86px)] overflow-scroll">
       {ranks.map((rank, index) => (
         <Fragment key={rank.id}>
           <Link href={`/${rank.id}`} className="p-2 flex flex-row gap-2 w-full items-center cursor-pointer">
@@ -62,7 +62,7 @@ const AddNewRank = () => {
   })
 
   return (
-    <form onSubmit={handleSubmit} className="p-2 border-t-2 border-black flex flex-row gap-2 absolute bottom-0 bg-white w-full">
+    <form onSubmit={handleSubmit} className="p-2 pb-4 border-t-2 border-black flex flex-row gap-2 absolute bottom-0 bg-white w-full">
       <input type="text" placeholder="Name" {...form.register('name')} className="p-2 m-2 text-[16px] border-2 border-black rounded w-full shadow" />
       <button type="submit" className="p-2 m-2 text-green-400 border-2 border-green-400 rounded shadow flex gap-1 items-center"><PlusIcon size={18} /> Create</button>
     </form>
