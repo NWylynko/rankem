@@ -48,13 +48,13 @@ const RankName = (props: { rankId: string }) => {
     <div className="p-2 flex flex-row gap-2 w-full items-center cursor-pointer bg-pink-500 text-white">
       <Link href="/" className="p-2 m-2 text-white border-2 border-white rounded shadow"><ArrowLeftIcon size={18} /></Link>
       <h1 className="uppercase text-xl w-full">{rank.name}</h1>
-      <button
+      {/* <button
         type="button"
         onClick={() => {
           router.push('/')
           deleteItem(props.rankId)
         }}
-        className="p-2 m-2 text-white border-2 border-white rounded shadow"><Trash2Icon size={18} /></button>
+        className="p-2 m-2 text-white border-2 border-white rounded shadow"><Trash2Icon size={18} /></button> */}
     </div>
   )
 }
@@ -62,6 +62,7 @@ const RankName = (props: { rankId: string }) => {
 
 const AddNewRankItem = (props: { rankId: string }) => {
   const addRankItem = useAppStore((state) => state.addItem)
+  const hideRanking = useAppStore((state) => state.hideRanking)
 
   const schema = z.object({
     name: z.string().min(1).max(50)
@@ -76,6 +77,7 @@ const AddNewRankItem = (props: { rankId: string }) => {
 
   const handleSubmit = form.handleSubmit((data) => {
     addRankItem(props.rankId, data.name)
+    hideRanking(props.rankId)
     form.reset()
   })
 
@@ -99,7 +101,7 @@ const Items = (props: { rankId: string }) => {
       {sortedItems.map((item, index) => (
         <Fragment key={item.id}>
           <Link href={`/${props.rankId}/${item.id}`} className="p-2 flex flex-row gap-2 w-full items-center cursor-pointer">
-            {sortedItems ? <span className="w-full">{index + 1}. {item.name}</span> : <span className="w-full">{item.name}</span>}
+            {showSorted ? <span className="w-full">{index + 1}. {item.name}</span> : <span className="w-full">{item.name}</span>}
             {/* <span>{item.score}</span> */}
           </Link>
           {index !== sortedItems.length - 1 && <div className="border-t-2 border-black opacity-85 w-full" />}
@@ -114,10 +116,10 @@ const CalculateRanking = (props: { rankId: string }) => {
   const showSorted = useAppStore((state) => state.ranks.find(rank => rank.id === props.rankId)?.showSorted)
 
   return (
-    <div className="absolute bottom-32 w-full flex items-center justify-center">
+    <div className="absolute bottom-16 w-full flex items-center justify-center">
       <button type="button" onClick={() => {
         calculateScores(props.rankId)
-      }} className="p-2 flex flex-row gap-2 items-center cursor-pointer bg-orange-500 text-white rounded-3xl shadow shadow-orange-500">
+      }} className="py-3 px-4 flex flex-row gap-2 items-center cursor-pointer bg-orange-500 text-white rounded-3xl shadow shadow-orange-500">
         {showSorted ? 'Recalculate Ranking' : 'Calculate Ranking'} <CalculatorIcon size={18} />
       </button>
     </div>

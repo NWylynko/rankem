@@ -56,13 +56,13 @@ const RankItemName = (props: { rankId: string, itemId: string }) => {
     <div className="p-2 flex flex-row gap-2 w-full items-center cursor-pointer bg-cyan-500 text-white">
       <Link href={`/${props.rankId}`} className="p-2 m-2 text-white border-2 border-white rounded shadow"><ArrowLeftIcon size={18} /></Link>
       <h1 className="uppercase text-xl w-full">{item.name}</h1>
-      <button
+      {/* <button
         type="button"
         onClick={() => {
           router.push(`/${props.rankId}`)
           removeItem(props.rankId, props.itemId);
         }}
-        className="p-2 m-2 text-white border-2 border-white rounded shadow"><Trash2Icon size={18} /></button>
+        className="p-2 m-2 text-white border-2 border-white rounded shadow"><Trash2Icon size={18} /></button> */}
     </div>
   )
 }

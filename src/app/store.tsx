@@ -30,6 +30,7 @@ type Store = {
   removeBetterThanItem: (rankId: string, itemId: string, id: string) => void
   removeWorseThanItem: (rankId: string, itemId: string, id: string) => void
   calculateScores: (rankId: string) => void
+  hideRanking: (rankId: string) => void
 }
 
 const getNewId = () => crypto.randomUUID()
@@ -200,6 +201,11 @@ const createAppStore = () => {
             });
 
             state.ranks.find(rank => rank.id === rankId).showSorted = true;
+          }));
+        },
+        hideRanking: (rankId) => {
+          set(produce(get(), (state) => {
+            state.ranks.find(rank => rank.id === rankId).showSorted = false;
           }));
         }
       }),
