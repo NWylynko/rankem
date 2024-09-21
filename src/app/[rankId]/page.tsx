@@ -98,7 +98,7 @@ const Items = (props: { rankId: string }) => {
   const rank = useRank(props.rankId)
   const showSorted = useAppStore((state) => state.ranks.find(rank => rank.id === props.rankId)?.showSorted)
 
-  const sortedItems = showSorted ? rank.items.toSorted((a, b) => a.score - b.score) : rank.items
+  const sortedItems = showSorted ? rank.items.toSorted((a, b) => b.score - a.score) : rank.items
 
 
   return (
